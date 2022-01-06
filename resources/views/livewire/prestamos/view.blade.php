@@ -1,7 +1,7 @@
 @section('title', __('Prestamos'))
 <div class="container-fluid">
 	<div class="row justify-content-center">
-		<div class="col-md-12">
+		<div class="col-md-12 pt-5 pb-3">
 			<div class="card">
 				<div class="card-header">
 					<div style="display: flex; justify-content: space-between; align-items: center;">
@@ -27,7 +27,7 @@
 				<div class="card-body">
 						@include('livewire.prestamos.create')
 						@include('livewire.prestamos.update')
-				<div class="table-responsive">
+				<div class="table-responsive pt-5 pb-3">
 					<table class="table table-hover table-bordered table-striped mb-4">
 						<thead class="thead">
 							<tr>
