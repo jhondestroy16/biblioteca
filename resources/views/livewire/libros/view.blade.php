@@ -33,7 +33,7 @@
 							<tr>
 								<td>#</td>
 								<th>Nombre</th>
-								<th>Isbn</th>
+								<th>ISBN</th>
 								<th>Editorial</th>
 								<th>Numero Paginas</th>
 								<th>Nombre autor</th>

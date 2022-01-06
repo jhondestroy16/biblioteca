@@ -6,11 +6,11 @@
 				<div class="card-header">
 					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<div class="float-left">
-							<h4><i class="fab fa-laravel text-info"></i>
-							Prestamo Listing </h4>
+							<h4><i class="fas fa-book-reader text-info"></i>
+							Prestamos </h4>
 						</div>
 						<div wire:poll.60s>
-							<code><h5>{{ now()->format('H:i:s') }} UTC</h5></code>
+							<code><h5 class="far fa-clock">{{ now()->format('H:i:s') }} UTC</h5></code>
 						</div>
 						@if (session()->has('message'))
 						<div wire:poll.4s class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;"> {{ session('message') }} </div>
@@ -19,7 +19,7 @@
 							<input wire:model='keyWord' type="text" class="form-control" name="search" id="search" placeholder="Search Prestamos">
 						</div>
 						<div class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
-						<i class="fa fa-plus"></i>  Add Prestamos
+						<i class="fa fa-plus"></i>  Agregar Prestamos
 						</div>
 					</div>
 				</div>
@@ -45,6 +45,7 @@
 								<td>{{ $loop->iteration }}</td>
 								<td>{{ $row->fecha_prestamo }}</td>
 								<td>{{ $row->fecha_devolucion }}</td>
+
 								<td>{{ $row->user_id }}</td>
 								<td>{{ $row->ejemplar_id }}</td>
 								<td width="90">
