@@ -21,7 +21,7 @@
                         <label for="libro_id"></label>
                         <select wire:model="libro_id" class="form-control" id="libro_id">
                             @error('libro_id') <span class="error text-danger">{{ $message }}</span> @enderror
-                            <option selected disabled value="">Seleccione...</option>
+                            <option selected value="">Seleccione...</option>
                             @foreach ($libros as $libro)
                                 <option value="{{ $libro->id }}">{{ $libro->nombre }}</option>
                             @endforeach

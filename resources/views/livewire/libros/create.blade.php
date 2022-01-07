@@ -40,7 +40,7 @@
                         <select wire:model="autor_id" class="form-control" id="autor_id">
                             @error('autor_id') <span
                             class="error text-danger">{{ $message }}</span> @enderror
-                            <option selected disabled value="">Seleccione...</option>
+                            <option selected value="">Seleccione...</option>
                             @foreach ($autores as $autor)
                                 <option value="{{ $autor->id }}">{{ $autor->nombre }}</option>
                             @endforeach

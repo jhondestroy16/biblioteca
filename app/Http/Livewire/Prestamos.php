@@ -17,12 +17,11 @@ class Prestamos extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $fecha_prestamo, $fecha_devolucion, $user_id, $ejemplar_id;
+    public $selected_id, $keyWord, $fecha_prestamo, $fecha_devolucion, $ejemplar_id;
     public $updateMode = false;
 
     public function render()
     {
-        $id = Auth::id();
         $keyWord = '%' . $this->keyWord . '%';
         return view('livewire.prestamos.view', [
             // 'prestamos' => Prestamo::latest()
@@ -35,9 +34,7 @@ class Prestamos extends Component
                 ->join('ejemplares', 'prestamos.ejemplar_id', '=', 'ejemplares.id')
                 ->select('prestamos.*', 'ejemplares.*', 'users.*')
                 ->paginate(10),
-            'ejemplares' => Ejemplar::all(),
-            'usuarios' => User::all()
-                ->where('id', '=', $id)
+            'ejemplares' => Ejemplar::all()
         ]);
     }
 
@@ -51,7 +48,6 @@ class Prestamos extends Component
     {
         $this->fecha_prestamo = null;
         $this->fecha_devolucion = null;
-        $this->user_id = null;
         $this->ejemplar_id = null;
     }
 
@@ -60,16 +56,20 @@ class Prestamos extends Component
         $this->validate([
             'fecha_prestamo' => 'required',
             'fecha_devolucion' => 'required',
-            'user_id' => 'required',
             'ejemplar_id' => 'required',
         ]);
 
-        Prestamo::create([
+        $prestamo = Prestamo::create([
             'fecha_prestamo' => $this->fecha_prestamo,
             'fecha_devolucion' => $this->fecha_devolucion,
-            'user_id' => $this->user_id,
             'ejemplar_id' => $this->ejemplar_id
         ]);
+        $id = $prestamo->id;
+        $idUser = Auth::id();
+
+        DB::table('prestamos')
+            ->where('id', $id)
+            ->update(['user_id' => $idUser]);
 
         $this->resetInput();
         $this->emit('closeModal');
@@ -83,7 +83,6 @@ class Prestamos extends Component
         $this->selected_id = $id;
         $this->fecha_prestamo = $record->fecha_prestamo;
         $this->fecha_devolucion = $record->fecha_devolucion;
-        $this->user_id = $record->user_id;
         $this->ejemplar_id = $record->ejemplar_id;
 
         $this->updateMode = true;
@@ -94,7 +93,6 @@ class Prestamos extends Component
         $this->validate([
             'fecha_prestamo' => 'required',
             'fecha_devolucion' => 'required',
-            'user_id' => 'required',
             'ejemplar_id' => 'required',
         ]);
 
@@ -103,7 +101,6 @@ class Prestamos extends Component
             $record->update([
                 'fecha_prestamo' => $this->fecha_prestamo,
                 'fecha_devolucion' => $this->fecha_devolucion,
-                'user_id' => $this->user_id,
                 'ejemplar_id' => $this->ejemplar_id
             ]);
 
