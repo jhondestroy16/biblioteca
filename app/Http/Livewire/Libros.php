@@ -19,12 +19,15 @@ class Libros extends Component
     {
         $keyWord = '%' . $this->keyWord . '%';
         return view('livewire.libros.view', [
-            'libros' => Libro::latest()
-                ->orWhere('nombre', 'LIKE', $keyWord)
-                ->orWhere('isbn', 'LIKE', $keyWord)
-                ->orWhere('editorial', 'LIKE', $keyWord)
-                ->orWhere('numero_paginas', 'LIKE', $keyWord)
-                ->orWhere('autor_id', 'LIKE', $keyWord)
+            // 'libros' => Libro::latest()
+            //     ->orWhere('nombre', 'LIKE', $keyWord)
+            //     ->orWhere('isbn', 'LIKE', $keyWord)
+            //     ->orWhere('editorial', 'LIKE', $keyWord)
+            //     ->orWhere('numero_paginas', 'LIKE', $keyWord)
+            //     ->orWhere('autor_id', 'LIKE', $keyWord)
+            //     ->paginate(10),
+            'libros' => Libro::join('autores', 'libros.autor_id', '=', 'autores.id')
+                ->select('libros.*', 'autores.nombre as nombreAutor')
                 ->paginate(10),
             'autores' => Autor::all()
         ]);

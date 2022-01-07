@@ -11,18 +11,21 @@ class Ejemplares extends Component
 {
     use WithPagination;
 
-	protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'bootstrap';
     public $selected_id, $keyWord, $localizacion, $libro_id;
     public $updateMode = false;
 
     public function render()
     {
-		$keyWord = '%'.$this->keyWord .'%';
+        $keyWord = '%' . $this->keyWord . '%';
         return view('livewire.ejemplares.view', [
-            'ejemplares' => Ejemplar::latest()
-						->orWhere('localizacion', 'LIKE', $keyWord)
-						->orWhere('libro_id', 'LIKE', $keyWord)
-						->paginate(10),
+            // 'ejemplares' => Ejemplar::latest()
+            // 			->orWhere('localizacion', 'LIKE', $keyWord)
+            // 			->orWhere('libro_id', 'LIKE', $keyWord)
+            // 			->paginate(10),
+            'ejemplares' => Ejemplar::join('libros', 'ejemplares.libro_id', '=', 'libros.id')
+                ->select('libros.*', 'ejemplares.*')
+                ->paginate(10),
             'libros' => Libro::all()
         ]);
     }
@@ -35,25 +38,25 @@ class Ejemplares extends Component
 
     private function resetInput()
     {
-		$this->localizacion = null;
-		$this->libro_id = null;
+        $this->localizacion = null;
+        $this->libro_id = null;
     }
 
     public function store()
     {
         $this->validate([
-		'localizacion' => 'required',
-		'libro_id' => 'required',
+            'localizacion' => 'required',
+            'libro_id' => 'required',
         ]);
 
         Ejemplar::create([
-			'localizacion' => $this-> localizacion,
-			'libro_id' => $this-> libro_id
+            'localizacion' => $this->localizacion,
+            'libro_id' => $this->libro_id
         ]);
 
         $this->resetInput();
-		$this->emit('closeModal');
-		session()->flash('message', 'Ejemplar Successfully created.');
+        $this->emit('closeModal');
+        session()->flash('message', 'Ejemplar Successfully created.');
     }
 
     public function edit($id)
@@ -61,8 +64,8 @@ class Ejemplares extends Component
         $record = Ejemplar::findOrFail($id);
 
         $this->selected_id = $id;
-		$this->localizacion = $record-> localizacion;
-		$this->libro_id = $record-> libro_id;
+        $this->localizacion = $record->localizacion;
+        $this->libro_id = $record->libro_id;
 
         $this->updateMode = true;
     }
@@ -70,20 +73,20 @@ class Ejemplares extends Component
     public function update()
     {
         $this->validate([
-		'localizacion' => 'required',
-		'libro_id' => 'required',
+            'localizacion' => 'required',
+            'libro_id' => 'required',
         ]);
 
         if ($this->selected_id) {
-			$record = Ejemplar::find($this->selected_id);
+            $record = Ejemplar::find($this->selected_id);
             $record->update([
-			'localizacion' => $this-> localizacion,
-			'libro_id' => $this-> libro_id
+                'localizacion' => $this->localizacion,
+                'libro_id' => $this->libro_id
             ]);
 
             $this->resetInput();
             $this->updateMode = false;
-			session()->flash('message', 'Ejemplare Successfully updated.');
+            session()->flash('message', 'Ejemplare Successfully updated.');
         }
     }
 

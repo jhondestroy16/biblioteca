@@ -20,6 +20,7 @@ class Libros extends Migration
             $table->string('editorial');
             $table->integer('numero_paginas');
             $table->foreignId('autor_id')
+                ->nullable()
                 ->constrained('autores')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

@@ -15,9 +15,6 @@
 						@if (session()->has('message'))
 						<div wire:poll.4s class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;"> {{ session('message') }} </div>
 						@endif
-						<div>
-							<input wire:model='keyWord' type="text" class="form-control" name="search" id="search" placeholder="Search Ejemplares">
-						</div>
 						<div class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
 						<i class="fa fa-plus"></i>  Add Ejemplares
 						</div>
@@ -42,7 +39,7 @@
 							<tr>
 								<td>{{ $loop->iteration }}</td>
 								<td>{{ $row->localizacion }}</td>
-								<td>{{ $row->libro_id }}</td>
+								<td>{{ $row->nombre }}</td>
 								<td width="90">
 								<div class="btn-group">
 									<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -18,10 +18,12 @@ class Prestamos extends Migration
             $table->dateTime('fecha_prestamo');
             $table->dateTime('fecha_devolucion');
             $table->foreignId('user_id')
+                ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('ejemplar_id')
+                ->nullable()
                 ->constrained('ejemplares')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

@@ -17,6 +17,7 @@ class Ejemplares extends Migration
             $table->id();
             $table->string('localizacion');
             $table->foreignId('libro_id')
+                ->nullable()
                 ->constrained('libros')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

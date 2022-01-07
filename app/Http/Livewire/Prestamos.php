@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Prestamo;
@@ -23,14 +25,19 @@ class Prestamos extends Component
         $id = Auth::id();
         $keyWord = '%' . $this->keyWord . '%';
         return view('livewire.prestamos.view', [
-            'prestamos' => Prestamo::latest()
-                ->orWhere('fecha_prestamo', 'LIKE', $keyWord)
-                ->orWhere('fecha_devolucion', 'LIKE', $keyWord)
-                ->orWhere('user_id', 'LIKE', $keyWord)
-                ->orWhere('ejemplar_id', 'LIKE', $keyWord)
+            // 'prestamos' => Prestamo::latest()
+            //     ->orWhere('fecha_prestamo', 'LIKE', $keyWord)
+            //     ->orWhere('fecha_devolucion', 'LIKE', $keyWord)
+            //     ->orWhere('user_id', 'LIKE', $keyWord)
+            //     ->orWhere('ejemplar_id', 'LIKE', $keyWord)
+            //     ->paginate(10),
+            'prestamos' => Prestamo::join('users', 'prestamos.user_id', '=', 'users.id')
+                ->join('ejemplares', 'prestamos.ejemplar_id', '=', 'ejemplares.id')
+                ->select('prestamos.*', 'ejemplares.*', 'users.*')
                 ->paginate(10),
             'ejemplares' => Ejemplar::all(),
             'usuarios' => User::all()
+                ->where('id', '=', $id)
         ]);
     }
 
