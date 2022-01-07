@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Prestamo;
+use App\Models\Ejemplar;
+use App\Models\Libro;
+use App\Models\Autor;
 
 class HomeController extends Controller
 {
@@ -23,6 +28,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $cantidadPrestamos = DB::table('prestamos')
+            ->select()->count('*');
+        $cantidadLibros = DB::table('libros')
+            ->select()->count('*');
+        $cantidadEjemplares = DB::table('ejemplares')
+            ->select()->count('*');
+        return view('home', compact('cantidadPrestamos', 'cantidadLibros','cantidadEjemplares'));
     }
 }

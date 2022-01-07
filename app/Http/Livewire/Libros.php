@@ -9,10 +9,6 @@ use App\Models\Autor;
 
 class Libros extends Component
 {
-    public function __construct()
-    {
-        $this->middleware('can:libros');
-    }
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';

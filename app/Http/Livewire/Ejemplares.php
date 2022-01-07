@@ -9,11 +9,6 @@ use App\Models\Libro;
 
 class Ejemplares extends Component
 {
-    public function __construct()
-    {
-        $this->middleware('can:ejemplares');
-    }
-
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';

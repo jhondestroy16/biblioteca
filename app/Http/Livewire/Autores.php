@@ -8,24 +8,19 @@ use App\Models\Autor;
 
 class Autores extends Component
 {
-    public function __construct()
-    {
-        $this->middleware('can:autores');
-    }
-
     use WithPagination;
 
-	protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'bootstrap';
     public $selected_id, $keyWord, $nombre;
     public $updateMode = false;
 
     public function render()
     {
-		$keyWord = '%'.$this->keyWord .'%';
+        $keyWord = '%' . $this->keyWord . '%';
         return view('livewire.autores.view', [
             'autores' => Autor::latest()
-						->orWhere('nombre', 'LIKE', $keyWord)
-						->paginate(10),
+                ->orWhere('nombre', 'LIKE', $keyWord)
+                ->paginate(10),
         ]);
     }
 
@@ -37,22 +32,22 @@ class Autores extends Component
 
     private function resetInput()
     {
-		$this->nombre = null;
+        $this->nombre = null;
     }
 
     public function store()
     {
         $this->validate([
-		'nombre' => 'required',
+            'nombre' => 'required',
         ]);
 
         Autor::create([
-			'nombre' => $this-> nombre
+            'nombre' => $this->nombre
         ]);
 
         $this->resetInput();
-		$this->emit('closeModal');
-		session()->flash('message', 'Autore Successfully created.');
+        $this->emit('closeModal');
+        session()->flash('message', 'Autore Successfully created.');
     }
 
     public function edit($id)
@@ -60,7 +55,7 @@ class Autores extends Component
         $record = Autor::findOrFail($id);
 
         $this->selected_id = $id;
-		$this->nombre = $record-> nombre;
+        $this->nombre = $record->nombre;
 
         $this->updateMode = true;
     }
@@ -68,18 +63,18 @@ class Autores extends Component
     public function update()
     {
         $this->validate([
-		'nombre' => 'required',
+            'nombre' => 'required',
         ]);
 
         if ($this->selected_id) {
-			$record = Autor::find($this->selected_id);
+            $record = Autor::find($this->selected_id);
             $record->update([
-			'nombre' => $this-> nombre
+                'nombre' => $this->nombre
             ]);
 
             $this->resetInput();
             $this->updateMode = false;
-			session()->flash('message', 'Autor Successfully updated.');
+            session()->flash('message', 'Autor Successfully updated.');
         }
     }
 
