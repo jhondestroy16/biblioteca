@@ -26,7 +26,7 @@ class Ejemplar extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function prestamos()
+    public function prestamo()
     {
         return $this->hasMany('App\Models\Prestamo', 'ejemplar_id', 'id');
     }

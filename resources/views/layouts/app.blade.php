@@ -42,22 +42,30 @@
                 @auth()
                     <ul class="navbar-nav mr-auto">
                         <!--Nav Bar Hooks - Do not delete!!-->
-                        <li class="nav-item">
-                            <a href="{{ url('/prestamos') }}" class="nav-link"><i
-                                    class="fas fa-book-reader text-info"></i> Prestamos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/ejemplares') }}" class="nav-link"><i
-                                    class="fab fa-linux text-info"></i> Ejemplares</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/libros') }}" class="nav-link"><i
-                                    class="fas fa-book text-info"></i> Libros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/autores') }}" class="nav-link"><i
-                                    class="fas fa-user text-info"></i> Autores</a>
-                        </li>
+                        @can('prestamos')
+                            <li class="nav-item">
+                                <a href="{{ url('/prestamos') }}" class="nav-link"><i
+                                        class="fas fa-book-reader text-info"></i> Prestamos</a>
+                            </li>
+                        @endcan
+                        @can('ejemplares')
+                            <li class="nav-item">
+                                <a href="{{ url('/ejemplares') }}" class="nav-link"><i
+                                        class="fab fa-linux text-info"></i> Ejemplares</a>
+                            </li>
+                        @endcan
+                        @can('libros')
+                            <li class="nav-item">
+                                <a href="{{ url('/libros') }}" class="nav-link"><i
+                                        class="fas fa-book text-info"></i> Libros</a>
+                            </li>
+                        @endcan
+                        @can('autores')
+                            <li class="nav-item">
+                                <a href="{{ url('/autores') }}" class="nav-link"><i
+                                        class="fas fa-user text-info"></i> Autores</a>
+                            </li>
+                        @endcan
                     </ul>
                 @endauth()
 

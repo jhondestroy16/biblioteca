@@ -14,6 +14,11 @@ use App\Models\User;
 
 class Prestamos extends Component
 {
+    public function __construct()
+    {
+        $this->middleware('can:prestamos');
+    }
+
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
@@ -22,6 +27,7 @@ class Prestamos extends Component
 
     public function render()
     {
+
         $keyWord = '%' . $this->keyWord . '%';
         return view('livewire.prestamos.view', [
             // 'prestamos' => Prestamo::latest()

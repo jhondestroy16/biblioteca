@@ -8,6 +8,11 @@ use App\Models\Autor;
 
 class Autores extends Component
 {
+    public function __construct()
+    {
+        $this->middleware('can:autores');
+    }
+
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';

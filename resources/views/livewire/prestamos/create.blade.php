@@ -28,8 +28,8 @@
                         <select wire:model="ejemplar_id" class="form-control" id="ejemplar_id">
                             @error('ejemplar_id') <span class="error text-danger">{{ $message }}</span> @enderror
                             <option selected value="">Seleccione...</option>
-                            @foreach ($prestamos as $prestamo)
-                                <option value="{{ $prestamo->id }}">{{ $prestamo->localizacion }}</option>
+                            @foreach ($ejemplares as $ejemplar)
+                                <option value="{{ $ejemplar->id }}">{{ $ejemplar->localizacion }}</option>
                             @endforeach
                         </select>
                     </div>
