@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         <label for="ejemplar_id"></label>
-                        <select wire:model="ejemplar_id" class="form-control" id="ejemplar_id">
+                        <select wire:model="ejemplar_id" class="select2" id="ejemplar_id">
                             @error('ejemplar_id') <span class="error text-danger">{{ $message }}</span> @enderror
                             <option selected value="">Seleccione...</option>
                             @foreach ($ejemplares as $ejemplar)
@@ -33,6 +33,11 @@
                             @endforeach
                         </select>
                     </div>
+                    <script>
+                        document.addEventListener('ejemplares:load', function() {
+                            $('#ejemplar_id').select2();
+                        });
+                    </script>
                 </form>
             </div>
             <div class="modal-footer">

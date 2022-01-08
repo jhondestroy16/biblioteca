@@ -6,7 +6,7 @@
 				<div class="card-header">
 					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<div class="float-left">
-							<h4><i class="fas fa-venus-mars text-info"></i>
+							<h4><i class="fab fa-ubuntu text-info"></i>
 							Ejemplares</h4>
 						</div>
 						<div wire:poll.60s>
